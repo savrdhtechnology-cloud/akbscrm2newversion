@@ -1,0 +1,2 @@
+import{AppShell}from"@/components/crm/app-shell";import{Workspace}from"@/components/crm/workspace";import{requireRole}from"@/lib/auth";import{navigation}from"@/lib/navigation";
+export default async function Page({params}:{params:Promise<{slug?:string[]}>}){const identity=await requireRole("admin");const{slug}=await params;return <AppShell role={identity.role} userName={identity.name} items={navigation[identity.role]}><Workspace section="Admin" slug={slug} role={identity.role} userId={identity.id}/></AppShell>}
