@@ -1,0 +1,4 @@
+import{redirect}from"next/navigation";import type{AppRole}from"@/lib/types";import{createSupabaseServerClient}from"@/lib/supabase/server";
+const rr:Record<string,AppRole[]>={admin:["SUPER_ADMIN","ADMIN"],manager:["MANAGER"],employee:["EMPLOYEE"],partner:["PARTNER"],customer:["CUSTOMER"]};
+export async function getCurrentIdentity(){const s=await createSupabaseServerClient();const{data:{user}}=await s.auth.getUser();if(!user)return null;const{data:p}=await s.schema("akbs_crm").from("users").select("id,name,role,active").eq("auth_user_id",user.id).maybeSingle();if(!p||!p.active)return null;return{id:p.id,email:user.email||"",role:p.role as AppRole,name:p.name}}
+export async function requireRole(section:keyof typeof rr){const i=await getCurrentIdentity();if(!i)redirect("/login");if(!rr[section].includes(i.role))redirect("/login?error=forbidden");return i}

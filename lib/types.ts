@@ -1,0 +1,3 @@
+export type AppRole="SUPER_ADMIN"|"ADMIN"|"MANAGER"|"EMPLOYEE"|"PARTNER"|"CUSTOMER";
+export type Permission="view:dashboard"|"view:inquiries"|"manage:leads"|"assign:leads"|"view:customers"|"manage:followups"|"manage:projects"|"manage:documents"|"approve:dpr"|"approve:proposal"|"manage:financing"|"manage:partners"|"view:commission"|"manage:team"|"view:reports"|"manage:settings"|"view:audit";
+export type NavItem={label:string;href:string;permission?:Permission};
