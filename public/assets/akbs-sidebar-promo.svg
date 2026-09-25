@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+<title id="title">AKBS Poultry Farming promotional illustration</title>
+<desc id="desc">Premium green poultry farm scene with a white chicken, farm sheds and warm sunrise.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b5c43"/>
+    <stop offset=".48" stop-color="#0a4635"/>
+    <stop offset="1" stop-color="#052d24"/>
+  </linearGradient>
+  <radialGradient id="sun" cx=".82" cy=".16" r=".28">
+    <stop offset="0" stop-color="#ffd98a" stop-opacity=".95"/>
+    <stop offset=".35" stop-color="#f7b955" stop-opacity=".45"/>
+    <stop offset="1" stop-color="#f7b955" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#137957"/>
+    <stop offset="1" stop-color="#073a2b"/>
+  </linearGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#001b14" flood-opacity=".35"/></filter>
+</defs>
+
+<rect width="600" height="360" fill="url(#bg)"/>
+<rect width="600" height="360" fill="url(#sun)"/>
+
+<g opacity=".3" filter="url(#soft)" fill="#061f18">
+  <ellipse cx="95" cy="120" rx="120" ry="72"/>
+  <ellipse cx="235" cy="105" rx="135" ry="68"/>
+  <ellipse cx="520" cy="118" rx="120" ry="65"/>
+</g>
+
+<path d="M0 225 C120 190 245 208 360 190 C455 175 520 184 600 165 L600 360 L0 360 Z" fill="url(#field)"/>
+<path d="M0 255 C120 228 248 244 360 222 C460 202 525 208 600 195" fill="none" stroke="#2fb381" stroke-opacity=".35" stroke-width="3"/>
+
+<g opacity=".5">
+  <path d="M38 198 L250 150 L402 184 L185 222 Z" fill="#dfeee7" opacity=".25"/>
+  <path d="M60 204 L249 163 L365 188" fill="none" stroke="#f6fff9" stroke-opacity=".32" stroke-width="4"/>
+  <g stroke="#e9fff5" stroke-opacity=".25" stroke-width="3">
+    <path d="M92 198 L92 238"/><path d="M132 190 L132 233"/><path d="M174 181 L174 226"/>
+    <path d="M217 171 L217 219"/><path d="M260 164 L260 215"/><path d="M305 177 L305 211"/>
+  </g>
+</g>
+
+<g filter="url(#shadow)" transform="translate(360 108)">
+  <ellipse cx="100" cy="168" rx="78" ry="88" fill="#f7faf8"/>
+  <ellipse cx="135" cy="122" rx="56" ry="63" fill="#ffffff"/>
+  <path d="M91 141 C46 130 24 152 16 191 C46 173 70 172 105 190 Z" fill="#edf4f0"/>
+  <path d="M167 126 C195 126 214 140 227 155 C204 156 188 160 171 171 Z" fill="#f4f7f5"/>
+  <ellipse cx="149" cy="108" rx="6" ry="7" fill="#241b13"/>
+  <ellipse cx="151" cy="106" rx="2" ry="2" fill="#fff"/>
+  <path d="M176 118 L219 132 L177 143 Z" fill="#e2a43f"/>
+  <path d="M107 71 C103 46 120 33 134 54 C135 30 153 27 158 52 C170 31 186 38 180 63 C195 48 205 59 191 78 C204 75 207 89 188 94 C167 82 138 79 107 71 Z" fill="#ef3d3d"/>
+  <path d="M173 147 C184 158 180 176 165 181 C156 167 158 155 173 147 Z" fill="#e83737"/>
+  <path d="M65 220 C78 245 97 260 127 267 C100 277 74 270 54 252 Z" fill="#dfe9e4"/>
+</g>
+
+<g fill="#f2fff8" opacity=".38">
+  <ellipse cx="68" cy="286" rx="18" ry="12"/>
+  <ellipse cx="115" cy="276" rx="16" ry="11"/>
+  <ellipse cx="165" cy="290" rx="17" ry="12"/>
+  <ellipse cx="216" cy="272" rx="15" ry="10"/>
+</g>
+
+<path d="M0 315 C150 284 262 326 396 294 C482 274 544 281 600 260 L600 360 L0 360 Z" fill="#02261d" opacity=".55"/>
+</svg>

@@ -56,9 +56,7 @@ type SidebarGroup = {
 const adminGroups: SidebarGroup[] = [
   {
     title: "OVERVIEW",
-    items: [
-      { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-    ],
+    items: [{ label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard }],
   },
   {
     title: "REGISTRATION MODULES",
@@ -79,11 +77,7 @@ const adminGroups: SidebarGroup[] = [
         aliases: ["/admin/proposals"],
         icon: FileText,
       },
-      {
-        label: "Loan & Financing",
-        href: "/admin/financing",
-        icon: IndianRupee,
-      },
+      { label: "Loan & Financing", href: "/admin/financing", icon: IndianRupee },
       { label: "Tasks", href: "/admin/tasks", icon: ClipboardCheck },
       { label: "Reports", href: "/admin/reports", icon: BarChart3 },
     ],
@@ -91,16 +85,8 @@ const adminGroups: SidebarGroup[] = [
   {
     title: "SETTINGS & SUPPORT",
     items: [
-      {
-        label: "Support & Help",
-        href: "/admin/calling-guide",
-        icon: CircleHelp,
-      },
-      {
-        label: "Access Control",
-        href: "/admin/team",
-        icon: ShieldCheck,
-      },
+      { label: "Support & Help", href: "/admin/calling-guide", icon: CircleHelp },
+      { label: "Access Control", href: "/admin/team", icon: ShieldCheck },
       { label: "Settings", href: "/admin/settings", icon: SettingsIcon },
     ],
   },
@@ -142,34 +128,29 @@ function iconFor(item: NavItem): LucideIcon {
 }
 
 function isActivePath(pathname: string, href: string, aliases: string[] = []) {
-  const candidates = [href, ...aliases];
-  return candidates.some(
-    (candidate) =>
-      pathname === candidate || pathname.startsWith(candidate + "/"),
+  return [href, ...aliases].some(
+    (candidate) => pathname === candidate || pathname.startsWith(candidate + "/"),
   );
 }
 
 function SidebarBrand() {
   return (
     <div className="px-3 pt-3">
-      <div className="rounded-[22px] border border-emerald-900/10 bg-white/95 p-3 shadow-[0_12px_30px_rgba(0,0,0,.12)]">
+      <div className="rounded-[20px] border border-emerald-900/10 bg-white p-3 shadow-[0_10px_26px_rgba(0,0,0,.12)]">
         <div className="flex items-center gap-3">
-          <div
-            aria-label="AKBS Poultry Farming logo"
-            className="h-14 w-14 shrink-0 rounded-2xl border border-emerald-100 bg-white bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage:
-                "url('https://www.akbspoultry.com/images/akbs_email_logo.png')",
-            }}
+          <img
+            src="/assets/akbs-sidebar-logo.png"
+            alt="AKBS Poultry Farming"
+            className="h-[58px] w-[58px] shrink-0 rounded-[17px] border border-emerald-100 object-cover shadow-sm"
           />
           <div className="min-w-0">
-            <div className="text-[10px] font-bold uppercase tracking-[.24em] text-emerald-600">
+            <div className="text-[9.5px] font-semibold uppercase tracking-[.22em] text-emerald-600">
               Admin CRM
             </div>
-            <div className="mt-0.5 truncate text-[17px] font-bold leading-tight text-[#063d2d]">
+            <div className="mt-1 truncate text-[15px] font-semibold leading-[1.15] text-[#073d2e]">
               AKBS Poultry Farming
             </div>
-            <div className="mt-1 text-[10px] font-medium text-slate-500">
+            <div className="mt-1 text-[10px] font-normal leading-4 text-slate-500">
               Healthy Birds | Better Tomorrow
             </div>
           </div>
@@ -202,32 +183,24 @@ function SidebarNavItem({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={[
-        "group relative flex min-h-11 items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold transition-all duration-150",
+        "group relative flex min-h-[42px] items-center gap-3 rounded-[14px] px-3 py-2 text-[14px] font-medium tracking-[-0.01em] transition-all duration-150",
         active
-          ? "bg-white text-[#083c2d] shadow-[0_8px_22px_rgba(0,0,0,.18)]"
-          : "text-emerald-50/78 hover:bg-white/[0.075] hover:text-white",
+          ? "bg-white text-[#0a3f30] shadow-[0_7px_18px_rgba(0,0,0,.17)]"
+          : "text-emerald-50/75 hover:bg-white/[0.07] hover:text-white",
       ].join(" ")}
     >
       <span
         className={[
-          "grid h-7 w-7 shrink-0 place-items-center rounded-xl transition-colors",
+          "grid h-7 w-7 shrink-0 place-items-center transition-colors",
           active
-            ? "bg-emerald-50 text-emerald-700"
-            : "text-emerald-300 group-hover:text-emerald-200",
+            ? "text-emerald-700"
+            : "text-emerald-300/90 group-hover:text-emerald-200",
         ].join(" ")}
       >
-        <Icon size={18} strokeWidth={1.9} />
+        <Icon size={18} strokeWidth={1.8} />
       </span>
-
       <span className="min-w-0 flex-1 truncate">{spec.label}</span>
-
-      {active && (
-        <ChevronRight
-          size={17}
-          strokeWidth={2}
-          className="shrink-0 text-emerald-700"
-        />
-      )}
+      {active && <ChevronRight size={16} strokeWidth={1.9} className="shrink-0 text-emerald-700" />}
     </Link>
   );
 }
@@ -246,12 +219,11 @@ function SidebarSection({
   const hasVisibleItem = group.items.some((spec) =>
     availableItems.some((item) => item.href === spec.href),
   );
-
   if (!hasVisibleItem) return null;
 
   return (
     <section className="mt-5">
-      <div className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[.22em] text-emerald-300/55">
+      <div className="mb-2 px-3 text-[9.5px] font-semibold uppercase tracking-[.22em] text-emerald-300/55">
         {group.title}
       </div>
       <div className="space-y-1">
@@ -271,26 +243,26 @@ function SidebarSection({
 
 function SidebarPromo() {
   return (
-    <div
-      className="group relative mt-6 overflow-hidden rounded-[22px] border border-emerald-300/20 bg-[#064733] shadow-[0_12px_34px_rgba(0,0,0,.2)] transition-transform duration-200 hover:-translate-y-0.5"
-      style={{
-        backgroundImage:
-          "linear-gradient(180deg,rgba(3,50,36,.15),rgba(2,39,29,.96)),url('https://www.akbspoultry.com/images/akbs_email_header_chicken.png')",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="min-h-[185px] p-4">
-        <div className="max-w-[170px]">
-          <div className="font-serif text-[23px] font-semibold italic leading-[1.05] text-white">
+    <div className="group relative mt-6 min-h-[205px] overflow-hidden rounded-[20px] border border-emerald-300/20 bg-[#064733] shadow-[0_10px_28px_rgba(0,0,0,.2)] transition-transform duration-200 hover:-translate-y-0.5">
+      <img
+        src="/assets/akbs-sidebar-promo.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover opacity-95"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,35,26,.08)_0%,rgba(2,36,27,.25)_42%,rgba(1,31,24,.9)_100%)]" />
+
+      <div className="relative flex min-h-[205px] flex-col justify-between p-4">
+        <div>
+          <div className="text-[18px] font-semibold italic leading-[1.05] tracking-[-0.02em] text-white">
             Healthy Farmers
           </div>
-          <div className="mt-1 font-serif text-[23px] font-semibold italic leading-[1.05] text-emerald-300">
+          <div className="mt-1 text-[18px] font-semibold italic leading-[1.05] tracking-[-0.02em] text-emerald-300">
             Healthy India
           </div>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-emerald-300/30 bg-[#032c21]/75 px-3 py-3 text-center text-[11px] font-medium leading-5 text-emerald-50/90 backdrop-blur-sm">
+        <div className="w-[82%] rounded-[14px] border border-emerald-300/35 bg-[#022c21]/78 px-3 py-2.5 text-center text-[10px] font-medium leading-[1.55] text-emerald-50/90 backdrop-blur-sm">
           “Every Follow-up
           <br />
           Brings a Farmer Closer
@@ -302,13 +274,7 @@ function SidebarPromo() {
   );
 }
 
-function SidebarProfile({
-  role,
-  userName,
-}: {
-  role: AppRole;
-  userName: string;
-}) {
+function SidebarProfile({ role, userName }: { role: AppRole; userName: string }) {
   const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN";
   const displayName = isAdmin ? "Super Admin" : userName;
   const initials = isAdmin
@@ -322,26 +288,26 @@ function SidebarProfile({
 
   return (
     <div className="mt-4 border-t border-white/10 pt-4">
-      <div className="flex items-center gap-3 rounded-[20px] border border-emerald-300/20 bg-white/[0.07] p-3">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-emerald-400 font-extrabold text-[#063829] shadow-inner">
+      <div className="flex items-center gap-3 rounded-[18px] border border-emerald-300/20 bg-white/[0.07] p-3">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-emerald-400 text-[14px] font-bold text-[#063829]">
           {initials}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-bold text-white">{displayName}</div>
-          <div className="mt-0.5 truncate text-[11px] text-emerald-100/55">
+          <div className="truncate text-[13.5px] font-semibold text-white">{displayName}</div>
+          <div className="mt-0.5 truncate text-[10px] font-normal text-emerald-100/55">
             {isAdmin ? "CRM Management Console" : role.replaceAll("_", " ")}
           </div>
         </div>
-        <ChevronRight size={17} className="text-emerald-200/70" />
+        <ChevronRight size={16} className="text-emerald-200/70" />
       </div>
 
       <form action={logoutAction} className="mt-2">
         <button
           type="submit"
-          className="flex w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-left text-sm font-semibold text-emerald-50/70 transition-colors hover:bg-red-500/10 hover:text-red-100"
+          className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[13.5px] font-medium text-emerald-50/72 transition-colors hover:bg-red-500/10 hover:text-red-100"
         >
           <span className="grid h-7 w-7 place-items-center text-emerald-300">
-            <LogOut size={18} strokeWidth={1.9} />
+            <LogOut size={17} strokeWidth={1.8} />
           </span>
           Logout
         </button>
@@ -374,7 +340,7 @@ export function CrmSidebar({
   );
 
   return (
-    <aside className="flex h-full w-full flex-col overflow-hidden bg-[linear-gradient(180deg,#043d2d_0%,#032f24_46%,#02271e_100%)] text-white">
+    <aside className="flex h-full w-full flex-col overflow-hidden bg-[linear-gradient(180deg,#043d2d_0%,#032f24_46%,#02271e_100%)] font-sans text-white">
       <SidebarBrand />
 
       <div className="akbs-sidebar-scroll flex-1 overflow-y-auto px-3 pb-4 pt-1">
@@ -392,12 +358,12 @@ export function CrmSidebar({
 
             {extraAdminItems.length > 0 && (
               <details
-                className="mt-5 rounded-2xl border border-white/8 bg-white/[0.025]"
+                className="mt-5 rounded-[16px] border border-white/8 bg-white/[0.025]"
                 open={extraActive || undefined}
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between rounded-2xl px-3 py-3 text-[10px] font-bold uppercase tracking-[.2em] text-emerald-300/55 transition-colors hover:bg-white/[0.04]">
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-[16px] px-3 py-3 text-[9.5px] font-semibold uppercase tracking-[.2em] text-emerald-300/55 transition-colors hover:bg-white/[0.04]">
                   More CRM
-                  <ChevronDown size={15} />
+                  <ChevronDown size={14} />
                 </summary>
                 <div className="space-y-1 px-2 pb-2">
                   {extraAdminItems.map((item) => {
@@ -409,13 +375,13 @@ export function CrmSidebar({
                         href={item.href}
                         onClick={onNavigate}
                         className={[
-                          "flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-colors",
+                          "flex items-center gap-3 rounded-[12px] px-3 py-2.5 text-[13px] font-medium tracking-[-0.01em] transition-colors",
                           active
                             ? "bg-white text-[#083c2d]"
                             : "text-emerald-50/70 hover:bg-white/[0.07] hover:text-white",
                         ].join(" ")}
                       >
-                        <Icon size={17} strokeWidth={1.8} />
+                        <Icon size={16} strokeWidth={1.8} />
                         <span className="truncate">{item.label}</span>
                       </Link>
                     );
@@ -426,7 +392,7 @@ export function CrmSidebar({
           </>
         ) : (
           <section className="mt-5">
-            <div className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[.22em] text-emerald-300/55">
+            <div className="mb-2 px-3 text-[9.5px] font-semibold uppercase tracking-[.22em] text-emerald-300/55">
               Portal Navigation
             </div>
             <div className="space-y-1">
@@ -439,15 +405,15 @@ export function CrmSidebar({
                     href={item.href}
                     onClick={onNavigate}
                     className={[
-                      "flex min-h-11 items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold transition-all",
+                      "flex min-h-[42px] items-center gap-3 rounded-[14px] px-3 py-2 text-[14px] font-medium tracking-[-0.01em] transition-all",
                       active
-                        ? "bg-white text-[#083c2d] shadow-[0_8px_22px_rgba(0,0,0,.18)]"
-                        : "text-emerald-50/78 hover:bg-white/[0.075] hover:text-white",
+                        ? "bg-white text-[#083c2d] shadow-[0_7px_18px_rgba(0,0,0,.17)]"
+                        : "text-emerald-50/75 hover:bg-white/[0.07] hover:text-white",
                     ].join(" ")}
                   >
-                    <Icon size={18} strokeWidth={1.9} />
+                    <Icon size={18} strokeWidth={1.8} />
                     <span className="truncate">{item.label}</span>
-                    {active && <ChevronRight size={17} className="ml-auto" />}
+                    {active && <ChevronRight size={16} className="ml-auto" />}
                   </Link>
                 );
               })}
