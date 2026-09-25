@@ -1,2 +1,137 @@
-"use client";import Link from "next/link";import {Bell,Menu,Search,X} from "lucide-react";import {useState} from "react";import type{AppRole,NavItem}from "@/lib/types";import{can}from "@/lib/rbac";
-export function AppShell({role,userName,items,children}:{role:AppRole;userName:string;items:NavItem[];children:React.ReactNode}){const[open,setOpen]=useState(false);const visible=items.filter(i=>can(role,i.permission));const sidebar=<aside className="h-full bg-[#0b2b1d] text-white p-4 flex flex-col"><div className="px-2 py-3 border-b border-white/10"><div className="text-xs tracking-[.18em] text-emerald-200">AKBS</div><div className="font-semibold text-lg">Poultry Farming CRM</div></div><nav className="mt-4 space-y-1 overflow-y-auto">{visible.map(item=><Link key={item.href} href={item.href} onClick={()=>setOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm text-emerald-50/80 hover:bg-white/10 hover:text-white">{item.label}</Link>)}</nav><div className="mt-auto pt-4 border-t border-white/10 text-xs text-emerald-100/60">Role: {role}</div></aside>;return <div className="min-h-screen lg:grid lg:grid-cols-[260px_1fr]"><div className="hidden lg:block sticky top-0 h-screen">{sidebar}</div>{open&&<div className="fixed inset-0 z-50 lg:hidden bg-black/30" onClick={()=>setOpen(false)}><div className="h-full w-[280px]" onClick={e=>e.stopPropagation()}>{sidebar}<button onClick={()=>setOpen(false)} className="absolute top-4 left-[290px] p-2 rounded-full bg-white"><X size={18}/></button></div></div>}<div className="min-w-0"><header className="h-16 bg-white/90 backdrop-blur border-b border-[#dfe7e1] sticky top-0 z-30 flex items-center gap-3 px-4 lg:px-6"><button onClick={()=>setOpen(true)} className="lg:hidden p-2 rounded-lg border"><Menu size={18}/></button><div className="flex-1 max-w-xl rounded-xl bg-slate-100 px-3 py-2 flex items-center gap-2 text-slate-500"><Search size={17}/><span className="text-sm">Search customers, leads, applications...</span></div><button className="p-2 rounded-xl border border-slate-200"><Bell size={18}/></button><div className="hidden sm:block text-right"><div className="text-sm font-medium">{userName}</div><div className="text-xs text-slate-500">{role}</div></div></header><main className="p-4 lg:p-6">{children}</main></div></div>}
+"use client";
+
+import { useEffect, useState } from "react";
+import { Bell, Menu, Search, X } from "lucide-react";
+import { CrmSidebar } from "@/components/crm/sidebar";
+import type { AppRole, NavItem } from "@/lib/types";
+
+export function AppShell({
+  role,
+  userName,
+  items,
+  children,
+}: {
+  role: AppRole;
+  userName: string;
+  items: NavItem[];
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#f4f7f4]">
+      <div className="fixed inset-y-0 left-0 z-40 hidden w-[278px] border-r border-emerald-950/20 lg:block">
+        <CrmSidebar role={role} userName={userName} items={items} />
+      </div>
+
+      <div
+        className={[
+          "fixed inset-0 z-50 lg:hidden",
+          open ? "pointer-events-auto" : "pointer-events-none",
+        ].join(" ")}
+        aria-hidden={!open}
+      >
+        <button
+          type="button"
+          aria-label="Close navigation"
+          onClick={() => setOpen(false)}
+          className={[
+            "absolute inset-0 bg-slate-950/55 backdrop-blur-[2px] transition-opacity duration-200",
+            open ? "opacity-100" : "opacity-0",
+          ].join(" ")}
+        />
+
+        <div
+          className={[
+            "absolute inset-y-0 left-0 w-[292px] max-w-[86vw] overflow-hidden rounded-r-[26px] shadow-2xl transition-transform duration-200 ease-out",
+            open ? "translate-x-0" : "-translate-x-full",
+          ].join(" ")}
+        >
+          <CrmSidebar
+            role={role}
+            userName={userName}
+            items={items}
+            onNavigate={() => setOpen(false)}
+          />
+        </div>
+
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          onClick={() => setOpen(false)}
+          className={[
+            "absolute left-[304px] top-4 grid h-10 w-10 place-items-center rounded-full bg-white text-slate-700 shadow-xl transition-all duration-200",
+            open
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-4 opacity-0",
+          ].join(" ")}
+        >
+          <X size={18} />
+        </button>
+      </div>
+
+      <div className="min-w-0 lg:ml-[278px]">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-[#dfe7e1] bg-white/92 px-4 backdrop-blur lg:px-6">
+          <button
+            type="button"
+            aria-label="Open navigation"
+            onClick={() => setOpen(true)}
+            className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-[#0a4a36] shadow-sm transition-colors hover:bg-emerald-50 lg:hidden"
+          >
+            <Menu size={19} />
+          </button>
+
+          <div className="min-w-0 flex-1 lg:hidden">
+            <div className="truncate text-[15px] font-extrabold tracking-tight text-[#073d2d]">
+              AKBS
+            </div>
+            <div className="text-[10px] font-medium text-slate-500">
+              Poultry Farming CRM
+            </div>
+          </div>
+
+          <div className="hidden max-w-xl flex-1 items-center gap-2 rounded-xl bg-slate-100 px-3 py-2 text-slate-500 lg:flex">
+            <Search size={17} />
+            <span className="text-sm">
+              Search customers, leads, applications...
+            </span>
+          </div>
+
+          <button
+            type="button"
+            aria-label="Notifications"
+            className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+          >
+            <Bell size={18} />
+          </button>
+
+          <div className="hidden text-right sm:block">
+            <div className="max-w-44 truncate text-sm font-semibold text-slate-800">
+              {userName}
+            </div>
+            <div className="text-[10px] font-medium uppercase tracking-[.12em] text-slate-400">
+              {role.replaceAll("_", " ")}
+            </div>
+          </div>
+        </header>
+
+        <main className="p-4 lg:p-6">{children}</main>
+      </div>
+    </div>
+  );
+}
