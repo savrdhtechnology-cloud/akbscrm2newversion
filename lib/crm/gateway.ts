@@ -7,13 +7,13 @@ export class CrmApiError extends Error{
   constructor(message:string, public status=400){super(message);}
 }
 
-const API_BASE="https://akbspoultry.com/api/crm";
+const API_BASE="https://www.akbspoultry.com/api/crm";
 
 function headersWithSession(token?:string, json=false){
   const h:Record<string,string>={"Cache-Control":"no-store"};
   if(json){
     h["Content-Type"]="application/json";
-    h["Origin"]="https://akbspoultry.com";
+    h["Origin"]="https://www.akbspoultry.com";
     h["Sec-Fetch-Site"]="same-origin";
   }
   if(token)h["Cookie"]="akbs_crm_session="+token;
