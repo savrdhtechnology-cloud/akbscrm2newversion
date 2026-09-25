@@ -1,4 +1,31 @@
-import{redirect}from"next/navigation";import type{AppRole}from"@/lib/types";import{createSupabaseServerClient}from"@/lib/supabase/server";
-const rr:Record<string,AppRole[]>={admin:["SUPER_ADMIN","ADMIN"],manager:["MANAGER"],employee:["EMPLOYEE"],partner:["PARTNER"],customer:["CUSTOMER"]};
-export async function getCurrentIdentity(){const s=await createSupabaseServerClient();const{data:{user}}=await s.auth.getUser();if(!user)return null;const{data:p}=await s.schema("akbs_crm").from("users").select("id,name,role,active").eq("auth_user_id",user.id).maybeSingle();if(!p||!p.active)return null;return{id:p.id,email:user.email||"",role:p.role as AppRole,name:p.name}}
-export async function requireRole(section:keyof typeof rr){const i=await getCurrentIdentity();if(!i)redirect("/login");if(!rr[section].includes(i.role))redirect("/login?error=forbidden");return i}
+import { redirect } from "next/navigation";
+import type { AppRole } from "@/lib/types";
+import { crm2Gateway, crm2SessionToken, CrmApiError } from "@/lib/crm/gateway";
+
+const routeRole:Record<string,AppRole[]>={
+  admin:["SUPER_ADMIN","ADMIN"],
+  manager:["MANAGER"],
+  employee:["EMPLOYEE"],
+  partner:["PARTNER"],
+  customer:["CUSTOMER"]
+};
+
+type GatewayUser={id:string;name:string;login:string;role:AppRole;active:boolean;manager_id:string|null;reference:string|null;must_change_password:boolean};
+
+export async function getCurrentIdentity(){
+  const token=await crm2SessionToken();
+  if(!token)return null;
+  try{
+    const result=await crm2Gateway<{user:GatewayUser}>("me",{},token);
+    return {id:result.user.id,email:"",role:result.user.role,name:result.user.name,login:result.user.login};
+  }catch(e){
+    if(e instanceof CrmApiError&&e.status===401)return null;
+    throw e;
+  }
+}
+export async function requireRole(section:keyof typeof routeRole){
+  const identity=await getCurrentIdentity();
+  if(!identity)redirect("/login");
+  if(!routeRole[section].includes(identity.role))redirect("/login?error=forbidden");
+  return identity;
+}

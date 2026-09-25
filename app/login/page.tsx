@@ -1,2 +1,20 @@
 import {loginAction} from "./actions";
-export default async function LoginPage({searchParams}:{searchParams:Promise<{error?:string}>}){const{error}=await searchParams;return <main className="min-h-screen grid lg:grid-cols-[1.1fr_.9fr] bg-[#f4f7f4]"><section className="hidden lg:flex bg-[#0b2b1d] text-white p-14 flex-col justify-between"><div><div className="text-sm tracking-[.22em] text-emerald-200">AKBS POULTRY FARMING</div><h1 className="mt-7 text-5xl font-semibold leading-tight">Operations.<br/>Customers.<br/>Projects.</h1><p className="mt-6 max-w-xl text-emerald-50/75 text-lg">One traceable CRM workflow from website inquiry to employee follow-up, site visit, DPR, proposal, financing and partner commission.</p></div><p className="text-sm text-emerald-100/60">Secure role-based CRM • Production architecture</p></section><section className="flex items-center justify-center p-6"><form action={loginAction} className="w-full max-w-md rounded-3xl bg-white border border-[#dfe7e1] shadow-sm p-8"><div className="h-14 w-14 rounded-2xl bg-[#103b27] text-white grid place-items-center font-bold text-xl">AK</div><h2 className="mt-6 text-3xl font-semibold">CRM Login</h2><p className="mt-2 text-sm text-slate-500">Use your AKBS authorized account.</p>{error&&<div className="mt-5 rounded-xl bg-red-50 border border-red-100 p-3 text-sm text-red-700">Login could not be completed.</div>}<label className="block mt-6 text-sm font-medium">Email</label><input name="email" type="email" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-[#1c6b43]"/><label className="block mt-4 text-sm font-medium">Password</label><input name="password" type="password" minLength={8} required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-[#1c6b43]"/><button className="mt-6 w-full rounded-xl bg-[#103b27] hover:bg-[#165134] text-white py-3.5 font-medium">Sign in securely</button></form></section></main>}
+export default async function LoginPage({searchParams}:{searchParams:Promise<{error?:string}>}){
+ const{error}=await searchParams;
+ return <main className="min-h-screen grid lg:grid-cols-[1.1fr_.9fr] bg-[#f4f7f4]">
+  <section className="hidden lg:flex bg-[#0b2b1d] text-white p-14 flex-col justify-between">
+   <div><div className="text-sm tracking-[.22em] text-emerald-200">AKBS POULTRY FARMING</div><h1 className="mt-7 text-5xl font-semibold leading-tight">Operations.<br/>Customers.<br/>Projects.</h1><p className="mt-6 max-w-xl text-emerald-50/75 text-lg">One traceable CRM workflow from website inquiry to employee follow-up, site visit, DPR, proposal, financing and partner commission.</p></div>
+   <p className="text-sm text-emerald-100/60">Secure role-based CRM • Production architecture</p>
+  </section>
+  <section className="flex items-center justify-center p-6">
+   <form action={loginAction} className="w-full max-w-md rounded-3xl bg-white border border-[#dfe7e1] shadow-sm p-8">
+    <div className="h-14 w-14 rounded-2xl bg-[#103b27] text-white grid place-items-center font-bold text-xl">AK</div>
+    <h2 className="mt-6 text-3xl font-semibold">CRM Login</h2><p className="mt-2 text-sm text-slate-500">Use your AKBS authorized login ID.</p>
+    {error&&<div className="mt-5 rounded-xl bg-red-50 border border-red-100 p-3 text-sm text-red-700">{error==="rate"?"Too many attempts. Please try again later.":"Login could not be completed."}</div>}
+    <label className="block mt-6 text-sm font-medium">Login ID</label><input name="login" autoComplete="username" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-[#1c6b43]"/>
+    <label className="block mt-4 text-sm font-medium">Password</label><input name="password" type="password" autoComplete="current-password" required className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-[#1c6b43]"/>
+    <button className="mt-6 w-full rounded-xl bg-[#103b27] hover:bg-[#165134] text-white py-3.5 font-medium">Sign in securely</button>
+   </form>
+  </section>
+ </main>
+}
